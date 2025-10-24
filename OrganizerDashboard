@@ -1,0 +1,77 @@
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class OrganizerDashboard {
+
+    public static void createAndShowGUI() {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {}
+
+        final JFrame dashboardFrame = new JFrame("Organizer Dashboard");
+        dashboardFrame.setSize(400, 250);
+        dashboardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        dashboardFrame.setLayout(new BorderLayout());
+
+        JPanel topButtonsPanel = new JPanel();
+        topButtonsPanel.setLayout(new GridLayout(1, 2, 15, 15));
+        topButtonsPanel.setBorder(new EmptyBorder(30, 30, 15, 30));
+
+        JButton createEventButton = new JButton("Create Event");
+        JButton viewEventsButton = new JButton("View My Events");
+
+        Font buttonFont = new Font("Arial", Font.BOLD, 16);
+        createEventButton.setFont(buttonFont);
+        viewEventsButton.setFont(buttonFont);
+
+        topButtonsPanel.add(createEventButton);
+        topButtonsPanel.add(viewEventsButton);
+
+        JPanel logoutPanel = new JPanel();
+        logoutPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        logoutPanel.setBorder(new EmptyBorder(10, 30, 30, 30));
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setFont(buttonFont);
+        logoutPanel.add(logoutButton);
+
+        createEventButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Create Event button clicked - (Navigation Removed)");
+            }
+        });
+
+        viewEventsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("View My Events button clicked - (Navigation Removed)");
+            }
+        });
+
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Organizer Logout button clicked - (Navigation Removed)");
+            }
+        });
+
+        dashboardFrame.add(topButtonsPanel, BorderLayout.CENTER);
+        dashboardFrame.add(logoutPanel, BorderLayout.SOUTH);
+
+        dashboardFrame.setLocationRelativeTo(null);
+        dashboardFrame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
+    }
+}
