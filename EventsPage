@@ -1,0 +1,89 @@
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ViewEventsPage {
+
+    public static void createAndShowGUI() {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {}
+
+        final JFrame viewFrame = new JFrame("View My Created Events");
+        viewFrame.setSize(600, 500);
+        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        viewFrame.setLayout(new BorderLayout());
+
+        JLabel titleLabel = new JLabel("My Created Events");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setBorder(new EmptyBorder(15, 15, 15, 15));
+
+        final JTextArea eventTextArea = new JTextArea();
+        eventTextArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        eventTextArea.setEditable(false);
+        eventTextArea.setBorder(new EmptyBorder(10, 10, 10, 10));
+        JScrollPane scrollPane = new JScrollPane(eventTextArea);
+
+        eventTextArea.setText("ID: 1\nEvent: Sample Event 1 (2025-11-15) (5/10 seats)\nLocation: Venue A\nDesc: A sample event description.\n--------------------------------------------------\n\n");
+        eventTextArea.append("ID: 3\nEvent: Admin's Other Event (2025-12-10) (0/20 seats)\nLocation: Venue C\nDesc: Another event created by this admin.\n--------------------------------------------------\n\n");
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        bottomPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        JLabel idLabel = new JLabel("Enter Event ID:");
+        final JTextField idField = new JTextField(10);
+        JButton viewParticipantsButton = new JButton("View Participants");
+        JButton backButton = new JButton("Back to Dashboard");
+
+        bottomPanel.add(idLabel);
+        bottomPanel.add(idField);
+        bottomPanel.add(viewParticipantsButton);
+        bottomPanel.add(backButton);
+
+        viewParticipantsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String eventIdText = idField.getText();
+                if (eventIdText.isEmpty()) {
+                    JOptionPane.showMessageDialog(viewFrame, "Please enter an Event ID.", "No ID Entered", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                try {
+                    int eventId = Integer.parseInt(eventIdText);
+                    System.out.println("View Participants for Event ID: " + eventId + " clicked - (Navigation Removed)");
+                    // ParticipantListPage.createAndShowGUI(eventId); // Navigation Removed
+                    // viewFrame.dispose();
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(viewFrame, "Please enter a valid number for the Event ID.", "Invalid ID", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("View My Events Back button clicked - (Navigation Removed)");
+            }
+        });
+
+        viewFrame.add(titleLabel, BorderLayout.NORTH);
+        viewFrame.add(scrollPane, BorderLayout.CENTER);
+        viewFrame.add(bottomPanel, BorderLayout.SOUTH);
+
+        viewFrame.setLocationRelativeTo(null);
+        viewFrame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
+    }
+}
