@@ -1,0 +1,114 @@
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ViewProfilePage {
+
+    public static void createAndShowGUI() {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {}
+
+        final JFrame profileFrame = new JFrame("Student Profile");
+        profileFrame.setSize(450, 400);
+        profileFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        profileFrame.setLayout(new BorderLayout());
+
+        JLabel titleLabel = new JLabel("My Profile");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setBorder(new EmptyBorder(15, 15, 15, 15));
+
+        JPanel profilePanel = new JPanel();
+        profilePanel.setLayout(new GridLayout(6, 2, 10, 10));
+        profilePanel.setBorder(new EmptyBorder(10, 20, 10, 20));
+
+        Font fieldFont = new Font("Arial", Font.BOLD, 14);
+        Font dataFont = new Font("Arial", Font.PLAIN, 14);
+
+        profilePanel.add(new JLabel("Name:") {{ setFont(fieldFont); }});
+        final JTextField nameDataField = new JTextField();
+        nameDataField.setFont(dataFont);
+        nameDataField.setEditable(false);
+        profilePanel.add(nameDataField);
+
+        profilePanel.add(new JLabel("Email:") {{ setFont(fieldFont); }});
+        final JTextField emailDataField = new JTextField();
+        emailDataField.setFont(dataFont);
+        emailDataField.setEditable(false);
+        profilePanel.add(emailDataField);
+
+        profilePanel.add(new JLabel("Gender:") {{ setFont(fieldFont); }});
+        final JTextField genderDataField = new JTextField();
+        genderDataField.setFont(dataFont);
+        genderDataField.setEditable(false);
+        profilePanel.add(genderDataField);
+
+        profilePanel.add(new JLabel("Registration Number:") {{ setFont(fieldFont); }});
+        final JTextField regNoDataField = new JTextField();
+        regNoDataField.setFont(dataFont);
+        regNoDataField.setEditable(false);
+        profilePanel.add(regNoDataField);
+
+        profilePanel.add(new JLabel("Phone Number:") {{ setFont(fieldFont); }});
+        final JTextField phoneDataField = new JTextField();
+        phoneDataField.setFont(dataFont);
+        phoneDataField.setEditable(false);
+        profilePanel.add(phoneDataField);
+
+        profilePanel.add(new JLabel("Department:") {{ setFont(fieldFont); }});
+        final JTextField deptDataField = new JTextField();
+        deptDataField.setFont(dataFont);
+        deptDataField.setEditable(false);
+        profilePanel.add(deptDataField);
+
+        nameDataField.setText("Sample Student");
+        emailDataField.setText("student@example.com");
+        genderDataField.setText("Male");
+        regNoDataField.setText("S12345");
+        phoneDataField.setText("9876543210");
+        deptDataField.setText("Computer Science");
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        buttonPanel.setBorder(new EmptyBorder(0, 10, 10, 10));
+
+        JButton editButton = new JButton("Edit Profile");
+        JButton backButton = new JButton("Back to Dashboard");
+
+        buttonPanel.add(editButton);
+        buttonPanel.add(backButton);
+
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Edit Profile button clicked - (Navigation Removed)");
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                 System.out.println("View Profile Back button clicked - (Navigation Removed)");
+            }
+        });
+
+        profileFrame.add(titleLabel, BorderLayout.NORTH);
+        profileFrame.add(profilePanel, BorderLayout.CENTER);
+        profileFrame.add(buttonPanel, BorderLayout.SOUTH);
+
+        profileFrame.setLocationRelativeTo(null);
+        profileFrame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
+    }
+}
