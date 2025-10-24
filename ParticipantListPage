@@ -1,0 +1,64 @@
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ParticipantListPage {
+
+    public static void createAndShowGUI(int eventId) {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {}
+
+        final JFrame viewFrame = new JFrame("Event Participant List");
+        viewFrame.setSize(600, 500);
+        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        viewFrame.setLayout(new BorderLayout());
+
+        JLabel titleLabel = new JLabel("Participant List for Event ID: " + eventId);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setBorder(new EmptyBorder(15, 15, 15, 15));
+
+        final JTextArea participantTextArea = new JTextArea();
+        participantTextArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        participantTextArea.setEditable(false);
+        participantTextArea.setBorder(new EmptyBorder(10, 10, 10, 10));
+        JScrollPane scrollPane = new JScrollPane(participantTextArea);
+
+        participantTextArea.setText("Name: Student One (S11111)\nDept: Science\nEmail: one@example.com | Phone: 1111111111\n--------------------------------------------------\n\n");
+        participantTextArea.append("Name: Student Two (S22222)\nDept: Arts\nEmail: two@example.com | Phone: 2222222222\n--------------------------------------------------\n\n");
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        bottomPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        JButton backButton = new JButton("Back to My Events");
+        bottomPanel.add(backButton);
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Participant List Back button clicked - (Navigation Removed)");
+            }
+        });
+
+        viewFrame.add(titleLabel, BorderLayout.NORTH);
+        viewFrame.add(scrollPane, BorderLayout.CENTER);
+        viewFrame.add(bottomPanel, BorderLayout.SOUTH);
+
+        viewFrame.setLocationRelativeTo(null);
+        viewFrame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        final int testEventId = 1;
+        SwingUtilities.invokeLater(() -> createAndShowGUI(testEventId));
+    }
+}
